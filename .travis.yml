@@ -1,0 +1,14 @@
+language: c
+script: make && make fs.img
+deploy:
+  provider: releases
+  api_key:
+    secure: bDoEBihbtY/cp3wtV5A5O0QcS6gPlYB9qtimcW+XAz0GMYJFTcYIo9eBws9goeEKm1QVUzQTnYRROVRPj3+o1U4TsuZjSg59SWpwsjTwUzsX1zsGfd1kGHeoY4O6kBatVqPrync2Zo8kXHtsRyMlkMlAB2DAxFyVC/gdRPi+L7ZL9vqUY9Cijtp5n9liEJUjxWaKxjRmRF5ssmhStBK20LJn2VHPfOqCIDp5mmjii5woK4FK51nxSEyRJOroGz3q3KC4ieRA/cMklN5h5DST/K8xRVEb6dxMCcP6t9IE3ADH9O7s2MgqUUSrrWg+4w8n21AB3vs7ClMs6KnF27MwsmSmTCprpH3EeXgo1VJ5ztNL5pluJNqoNyp+xrL58m4sU1h7PhKLYFu8qRZqczDAME7ssXP6NO1w80bntgdLfllb42WVj+HG0tgNlnFbrMhbFJJxtNO+cWm1O0axuMxys4jpgSisAHA5WH9HZfgh7vtfNsoLYaD2I2TcFfYuHLNRsgv1NpBWZv5EdgVZ03NMex+G+aECYDqI/j0PRcWMZM3frdpDh9CQQPRr1uJkyzZ0o1Zyj5k56tykaL3KDaS92eStAE7xWttYgmohhYHZlpsNwywmF9zie4rfi0TcB1GaZsoUFK8xG8Ft/Gf4AmFlyGBGJKpWJVXMuwMLciOpePg=
+  file:
+    - fs.img
+    - xv6.img
+  skip_cleanup: true
+  on:
+    repo: sebavalengo/xv6-public
+    branch: project_1
+    tags: true
