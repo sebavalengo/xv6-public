@@ -5,6 +5,6 @@
 int
 main(void)
 {
-  printf(1, "Mi primer programa en xv6\n");
+  printf(1, "La cantidad de procesos corriendo en la CPU es de : %d \n",getprocs());
   exit();
 }
