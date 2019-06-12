@@ -92,6 +92,5 @@ sys_uptime(void)
 int
 sys_direccion(void)
 {
-  cprintf("Saludos desde sysprocs.c");
-  return 0;
+  return direccion();
 }
