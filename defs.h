@@ -120,7 +120,7 @@ void            userinit(void);
 int             wait(void);
 void            wakeup(void*);
 void            yield(void);
-int             dvirtualafisica(void);
+int             dvirtualafisica(char*);
 int             direcciones(void);
 // swtch.S
 void            swtch(struct context**, struct context*);

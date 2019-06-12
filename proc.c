@@ -533,17 +533,25 @@ procdump(void)
   }
 }
 int
-dvirtualafisica(void)
+dvirtualafisica(char* va)
 {
   struct proc *p;
+  cprintf("Ingresada: %s\n",va);
 
   for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
     if(p->state != UNUSED)
     {
 
-      cprintf("%p\n",p->pgdir);
-      cprintf("%p\n",V2P(p->pgdir));
-      cprintf("pid: %d, nombre: %s \n",p->pid,p->name);
+    // if(&p->pgdir == va)
+    // {
+    //   cprintf("Hola!");
+    // }
+      cprintf("Proceso: %p",p->pgdir);
+
+      // if(p->pgdir == va)
+      // {
+      //   cprintf("todo correcto");
+      // }
     }
   }
   return -1;

@@ -96,8 +96,7 @@ sys_dvirtualafisica(void)
 
   if(argstr(0, &virtual_address) < 0)
     return -1;
-  cprintf("direccion ingresada: %s\n",virtual_address);
-  return dvirtualafisica();
+  return dvirtualafisica(virtual_address);
 }
 int
 sys_direcciones(void)
