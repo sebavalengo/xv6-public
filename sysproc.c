@@ -92,6 +92,12 @@ sys_uptime(void)
 int
 sys_setticket(void)
 {
-  cprintf("Print desde ticket\n");
+  int pid;
+  int tickets;
+  if(argint(0, &pid) < 0)
+    return -1;
+  if(argint(1, &tickets) < 0)
+    return -1;
+  cprintf("pid: %d , tickets. %d",pid,tickets);
   return 0;
 }

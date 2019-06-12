@@ -6,6 +6,7 @@
 #include "x86.h"
 #include "proc.h"
 #include "spinlock.h"
+#include "rand.h" //libreria para generar numeros random
 
 struct {
   struct spinlock lock;
@@ -15,7 +16,6 @@ struct {
 static struct proc *initproc;
 
 int nextpid = 1;
-int totaltickets = 1000;
 extern void forkret(void);
 extern void trapret(void);
 
@@ -88,7 +88,6 @@ allocproc(void)
 {
   struct proc *p;
   char *sp;
-  cprintf("TOTAL PROCESOS: %d",total_procesos());
   acquire(&ptable.lock);
   for(p = ptable.proc; p < &ptable.proc[NPROC]; p++)
     if(p->state == UNUSED)
@@ -100,9 +99,7 @@ allocproc(void)
 found:
   p->state = EMBRYO;
   p->pid = nextpid++;
-  p->tickets = totaltickets/total_procesos();
-  cprintf("tickets %d",p->tickets);
-
+  p->tickets = 1;//tickets base, luego seran modificados en el scheluding
   release(&ptable.lock);
 
   // Allocate kernel stack.
@@ -343,12 +340,24 @@ scheduler(void)
   for(;;){
     // Enable interrupts on this processor.
     sti();
+    int totaltickets = 100;
+    int tickets_acumulados = 0;
+    for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
+      if(p->state != RUNNABLE)
+        continue;
+      totaltickets = totaltickets + p->tickets;
+    }
+    long futuro_proceso = random_at_most(totaltickets);
 
     // Loop over process table looking for process to run.
     acquire(&ptable.lock);
     for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
       if(p->state != RUNNABLE)
         continue;
+      tickets_acumulados+=p->tickets;
+      if(tickets_acumulados<futuro_proceso){
+        continue;
+      }
 
       // Switch to chosen process.  It is the process's job
       // to release ptable.lock and then reacquire it
@@ -363,6 +372,7 @@ scheduler(void)
       // Process is done running for now.
       // It should have changed its p->state before coming back.
       c->proc = 0;
+      break;
     }
     release(&ptable.lock);
 
@@ -545,4 +555,24 @@ procdump(void)
     }
     cprintf("\n");
   }
+}
+int
+setticket(int pid,int tickets)
+{
+  struct proc *p;
+
+  acquire(&ptable.lock);
+  for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
+    if(p->pid == pid){
+      p->tickets = tickets;
+      cprintf("el proceso de id: %d ahora tiene %d tickets.",p->pid,p->tickets);
+      // Wake process from sleep if necessary.
+      if(p->state == SLEEPING)
+        p->state = RUNNABLE;
+      release(&ptable.lock);
+      return 0;
+    }
+  }
+  release(&ptable.lock);
+  return -1;
 }

@@ -1,8 +1,15 @@
 #include "types.h"
+#include "stat.h"
 #include "user.h"
 
-int main(void)
+int
+main(int argc, char **argv)
 {
-    setticket();
-    printf(1,"probando setticket.c\n");
+
+  if(argc < 3){
+    printf(2, "uso setticket pid tickets\n");
+    exit();
+  }
+  setticket(atoi(argv[1]),atoi(argv[2]));
+  exit();
 }
