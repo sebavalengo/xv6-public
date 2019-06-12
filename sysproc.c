@@ -98,6 +98,9 @@ sys_setticket(void)
     return -1;
   if(argint(1, &tickets) < 0)
     return -1;
-  cprintf("pid: %d , tickets. %d",pid,tickets);
-  return 0;
+  return setticket(pid,tickets);
+}
+int
+sys_viewtickets(void){
+  return viewtickets();
 }

@@ -565,12 +565,27 @@ setticket(int pid,int tickets)
   for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
     if(p->pid == pid){
       p->tickets = tickets;
-      cprintf("el proceso de id: %d ahora tiene %d tickets.",p->pid,p->tickets);
+      cprintf("el proceso de id: %d ahora tiene %d tickets.\n",p->pid,p->tickets);
       // Wake process from sleep if necessary.
       if(p->state == SLEEPING)
         p->state = RUNNABLE;
       release(&ptable.lock);
       return 0;
+    }
+  }
+  release(&ptable.lock);
+  return -1;
+}
+int
+viewtickets(void)
+{
+  struct proc *p;
+  cprintf("Tickets en procesos\n");
+  acquire(&ptable.lock);
+  for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
+    if(p->state != UNUSED)
+    {
+      cprintf("id: %d tickets: %d\n",p->pid,p->tickets);
     }
   }
   release(&ptable.lock);
