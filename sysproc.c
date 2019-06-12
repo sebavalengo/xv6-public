@@ -89,3 +89,9 @@ sys_uptime(void)
   release(&tickslock);
   return xticks;
 }
+int
+sys_direccion(void)
+{
+  cprintf("Saludos desde sysprocs.c");
+  return 0;
+}
