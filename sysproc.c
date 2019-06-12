@@ -90,7 +90,12 @@ sys_uptime(void)
   return xticks;
 }
 int
-sys_direccion(void)
+sys_dvirtualafisica(void)
 {
-  return direccion();
+  char* virtual_address;
+
+  if(argstr(0, &virtual_address) < 0)
+    return -1;
+  cprintf("direccion ingresada: %s\n",virtual_address);
+  return dvirtualafisica();
 }

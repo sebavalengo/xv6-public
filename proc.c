@@ -533,13 +533,16 @@ procdump(void)
   }
 }
 int
-direccion(void)
+dvirtualafisica(void)
 {
   struct proc *p;
 
   for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
     if(p->state != UNUSED)
     {
+
+      cprintf("%p\n",p->pgdir);
+      cprintf("%p\n",V2P(p->pgdir));
       cprintf("pid: %d, nombre: %s \n",p->pid,p->name);
     }
   }
