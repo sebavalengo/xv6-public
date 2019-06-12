@@ -89,3 +89,9 @@ sys_uptime(void)
   release(&tickslock);
   return xticks;
 }
+int
+sys_setticket(void)
+{
+  cprintf("Print desde ticket\n");
+  return 0;
+}

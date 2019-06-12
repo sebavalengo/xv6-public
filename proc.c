@@ -66,6 +66,18 @@ myproc(void) {
   return p;
 }
 
+int
+total_procesos(void){
+  struct proc *p;
+  int total = 0;
+  for(p = ptable.proc; p < &ptable.proc[NPROC]; p++)
+    if (p->state != UNUSED)
+    {
+      total++;
+    }
+  return total;
+}
+
 //PAGEBREAK: 32
 // Look in the process table for an UNUSED proc.
 // If found, change state to EMBRYO and initialize
@@ -76,7 +88,7 @@ allocproc(void)
 {
   struct proc *p;
   char *sp;
-
+  cprintf("TOTAL PROCESOS: %d",total_procesos());
   acquire(&ptable.lock);
   for(p = ptable.proc; p < &ptable.proc[NPROC]; p++)
     if(p->state == UNUSED)
@@ -88,7 +100,7 @@ allocproc(void)
 found:
   p->state = EMBRYO;
   p->pid = nextpid++;
-  p->tickets = 10;
+  p->tickets = totaltickets/total_procesos();
   cprintf("tickets %d",p->tickets);
 
   release(&ptable.lock);
