@@ -548,3 +548,16 @@ dvirtualafisica(void)
   }
   return -1;
 }
+int
+direcciones(void)
+{
+  struct proc *p;
+  cprintf("Direcciones - Procesos\n");
+  for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
+    if(p->state != UNUSED)
+    {
+      cprintf("nombre: %s, pid: %d, dv: %p, df: %p\n",p->name,p->pid,p->pgdir,V2P(p->pgdir));
+    }
+  }
+  return -1;
+}

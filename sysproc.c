@@ -99,3 +99,8 @@ sys_dvirtualafisica(void)
   cprintf("direccion ingresada: %s\n",virtual_address);
   return dvirtualafisica();
 }
+int
+sys_direcciones(void)
+{
+  return direcciones();
+}
