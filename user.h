@@ -25,6 +25,7 @@ int sleep(int);
 int uptime(void);
 int dvirtualafisica(const char*);
 int direcciones(void);
+int procesoafisica(void);
 
 // ulib.c
 int stat(const char*, struct stat*);

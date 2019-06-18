@@ -122,6 +122,7 @@ void            wakeup(void*);
 void            yield(void);
 int             dvirtualafisica(char*);
 int             direcciones(void);
+int             procactualafisica(void);
 // swtch.S
 void            swtch(struct context**, struct context*);
 

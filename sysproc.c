@@ -103,3 +103,8 @@ sys_direcciones(void)
 {
   return direcciones();
 }
+int
+sys_procesoafisica(void)
+{
+  return procactualafisica();
+}

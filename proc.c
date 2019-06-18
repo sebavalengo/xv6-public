@@ -536,25 +536,29 @@ int
 dvirtualafisica(char* va)
 {
   struct proc *p;
-  cprintf("Ingresada: %s\n",va);
 
   for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
     if(p->state != UNUSED)
     {
-
-    // if(&p->pgdir == va)
-    // {
-    //   cprintf("Hola!");
-    // }
-      cprintf("Proceso: %p",p->pgdir);
-
-      // if(p->pgdir == va)
-      // {
-      //   cprintf("todo correcto");
-      // }
+      //if(p->pgdir == va) //no supe como comparar direccion con string,
+      //{
+        //return V2P(p->pgdir);
+      //}
     }
   }
   return -1;
+}
+int
+procactualafisica(void){
+  struct proc *p = myproc();
+  if (p->pgdir == 0){ //si no tiene pgdir
+    cprintf("No se ha encontrado la direccion virtual.");
+    return -1;
+  }
+  else{
+    cprintf("Direccion fisica: %p",V2P(p->pgdir));
+    return V2P(p->pgdir);
+  }
 }
 int
 direcciones(void)

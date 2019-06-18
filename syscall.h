@@ -22,3 +22,4 @@
 #define SYS_close  21
 #define SYS_dvirtualafisica 22
 #define SYS_direcciones 23
+#define SYS_procesoafisica 24
